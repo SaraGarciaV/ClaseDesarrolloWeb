@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   standalone: true,
@@ -14,11 +15,15 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService // ¡Servicio inyectado!
+  ) {}
 
   onSubmit() {
     if (this.username === 'admin' && this.password === '1234') {
-      this.router.navigate(['/dashboard']); // Asegúrate de crear esta ruta después
+      this.authService.login(); // Usa el servicio
+      this.router.navigate(['/dashboard']);
     } else {
       alert('Credenciales incorrectas. Usa: admin / 1234');
     }
