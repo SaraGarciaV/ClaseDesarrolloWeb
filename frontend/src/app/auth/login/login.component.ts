@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   selector: 'app-login',
-  templateUrl: './login.component.html', // Asegúrate que apunta al HTML correcto
-  styleUrls: ['./login.component.css']   // Usa los estilos CSS si los necesitas
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   username: string = '';
@@ -12,11 +16,11 @@ export class LoginComponent {
 
   constructor(private router: Router) {}
 
-  onLogin() {
-    if (this.username && this.password) {
-      // Simulación de login exitoso
-      localStorage.setItem('authToken', 'dummy-token');
-      this.router.navigate(['/dashboard']);
+  onSubmit() {
+    if (this.username === 'admin' && this.password === '1234') {
+      this.router.navigate(['/dashboard']); // Asegúrate de crear esta ruta después
+    } else {
+      alert('Credenciales incorrectas. Usa: admin / 1234');
     }
   }
 }
